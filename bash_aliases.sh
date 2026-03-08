@@ -11,7 +11,7 @@ alias ros="rpm-ostree"
 
 # Neovim
 alias v="nvim"
-alias va="pushd ~/.aliases;nvim ./bash_aliases.sh;popd;source ~/.aliases/bash_aliases.sh"
+alias va="pushd $USERSCRIPT_DIR;nvim ./bash_aliases.sh;popd;source $USERSCRIPT_DIR/bash_aliases.sh"
 alias nvim-update="pushd $NVIM_CONFIG; git pull; popd"
 alias nvim-update-force="pushd $NVIM_CONFIG; git reset --hard HEAD; git pull; popd"
 
