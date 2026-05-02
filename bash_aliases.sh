@@ -36,5 +36,9 @@ alias ldr="lazydocker"
 
 alias cr="cargo run"
 alias cc="cargo check"
+alias ct="cargo test"
+
+alias dr="dotnet run"
+alias dt="dotnet test"
 
 alias ":q"="exit"
