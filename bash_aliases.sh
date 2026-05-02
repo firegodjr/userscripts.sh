@@ -1,3 +1,9 @@
+# Userscript
+function checkhealth() {
+    pushd $USERSCRIPT_DIR > /dev/null
+    ./checkhealth.sh
+    popd > /dev/null
+}
 
 # Atomic
 # Distrobox
@@ -19,7 +25,7 @@ function edit-aliases() {
 }
 
 # Neovim
-alias v="nvim"
+alias v=$EDITOR
 alias va="edit-aliases"
 alias nvim-update="pushd $NVIM_CONFIG; git pull; popd"
 alias nvim-update-force="pushd $NVIM_CONFIG; git reset --hard HEAD; git pull; popd"
@@ -27,5 +33,8 @@ alias nvim-update-force="pushd $NVIM_CONFIG; git reset --hard HEAD; git pull; po
 # Utilities
 alias lg="lazygit"
 alias ldr="lazydocker"
+
+alias cr="cargo run"
+alias cc="cargo check"
 
 alias ":q"="exit"
