@@ -5,6 +5,10 @@ ENTRYPOINT="${BASH_SOURCE[0]}"
 export USERSCRIPT_DIR=$(dirname $ENTRYPOINT)
 export PATH="$PATH:$USERSCRIPT_DIR/bin"
 
+if [[ -v $NVIM_CONFIG ]]; then
+    export NVIM_CONFIG="$HOME/.config/nvim"
+fi
+
 # Set our cwd to the repo
 pushd "$USERSCRIPT_DIR" > /dev/null || exit
 
