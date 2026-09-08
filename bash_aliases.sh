@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Userscript
 function checkhealth() {
     pushd $USERSCRIPT_DIR > /dev/null
@@ -57,6 +59,34 @@ alias cb="cargo build"
 
 alias dr="dotnet run"
 alias dt="dotnet test"
+dotnet-console-test() {
+    dotnet test --filter "$1" -l "console;verbosity=detailed"
+}
+alias dtc="dotnet-console-test"
+dotnet-console-test-write() {
+    dotnet-console-test $1 > test_$1.txt
+}
+alias dtcw="dotnet-console-test-write"
+
+declare -Ag CACHED_DOTNET_TESTS
+declare -Ag CACHED_DOTNET_TESTS_TS
+_dotnet_tests_completion() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local cwd="$(pwd)"
+    if [[ -z ${CACHED_DOTNET_TESTS[$cwd]} || ${CACHED_DOTNET_TESTS_TS[$cwd]} -lt $((($(date +%s) - 15))) ]]; then
+        CACHED_DOTNET_TESTS[$cwd]=$(dotnet test -t --no-build 2>/dev/null \
+            | sed -n 's/^[[:space:]]\{1,\}\([A-Za-z_].*\)/\1/p' \
+            | sed 's/(.*//' \
+            | awk -F. 'NF>=2 {print $(NF-1)"."$NF}' \
+            | sort -u)
+        CACHED_DOTNET_TESTS_TS[$cwd]=$(date +%s)
+    fi
+    local tests="${CACHED_DOTNET_TESTS[$cwd]}"
+    COMPREPLY=( $(compgen -W "$tests" -- "$cur") )
+}
+complete -F _dotnet_tests_completion dtc
+complete -F _dotnet_tests_completion dtcw
+
 
 alias targz="tar -xvzf"
 alias ls="ls --color"
