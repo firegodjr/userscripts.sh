@@ -34,6 +34,7 @@ function edit-aliases() {
 function edit-system-aliases() {
     pushd ~
     $EDITOR ./.bash_aliases
+    source ./bash_aliases
     popd
     echo "Aliases Refreshed."
 }
