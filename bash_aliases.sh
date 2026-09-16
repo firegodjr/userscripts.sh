@@ -17,6 +17,11 @@ alias h="distrobox-host-exec"
 # Ostree
 alias os="ostree"
 alias ros="rpm-ostree"
+# Ripgrep
+alias rgf="rg --rilfes | rg"
+function rgv() {
+    rg "$1" --vimgrep | nvim -q -
+}
 
 function edit-aliases() {
     pushd $USERSCRIPT_DIR
