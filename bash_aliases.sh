@@ -18,7 +18,7 @@ alias h="distrobox-host-exec"
 alias os="ostree"
 alias ros="rpm-ostree"
 # Ripgrep
-alias rgf="rg --rilfes | rg"
+alias rgf="rg --files | rg"
 function rgv() {
     rg "$1" --vimgrep | nvim -q -
 }
